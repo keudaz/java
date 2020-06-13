@@ -40,7 +40,7 @@ public class addDriverService {
 					preparedStatement.execute();
 					setSuccess(1);
 					
-					preparedStatement1 = connection.prepareStatement("select eemail from employee where eid=?");
+					preparedStatement1 = connection.prepareStatement("select uemail from user where id=?");
 					preparedStatement1.setInt(1, driver.getEmpid());
 					ResultSet rs1 = preparedStatement1.executeQuery();
 				    

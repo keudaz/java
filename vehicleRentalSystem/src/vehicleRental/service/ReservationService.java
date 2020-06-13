@@ -149,7 +149,7 @@ public void addReservation(Reservation reservation)  {
 				reservation.setDname("");
 				reservation.setDphone("");
 				
-				preparedStatement1 = connection.prepareStatement("select efullname,ephonenum from employee where eid=?");
+				preparedStatement1 = connection.prepareStatement("select fullname,phonenum from user where id=?");
 				preparedStatement1.setInt(1, resultSet.getInt(16));
 				ResultSet rs = preparedStatement1.executeQuery();
 			    

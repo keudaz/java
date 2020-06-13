@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+import java.util.Date;
 
 import vehicleRental.model.Employee;
 
@@ -34,14 +36,16 @@ public void addEmployee(Employee employee) {
 	
 		
 	
-	
+	DateFormat df = new SimpleDateFormat("yy-MM-dd");
+	Date dateobj = new Date();
+	System.out.println(df.format(dateobj));
 	
 		
 	
 		try {
 			connection = DBConnect.getDBConnection();
 
-			preparedStatement = connection.prepareStatement("insert into user(uname,upass,uemail,fullname,phonenum,NIC,address,user_type) values (?,?,?,?,?,?,?,?)");
+			preparedStatement = connection.prepareStatement("insert into user(uname,upass,uemail,fullname,phonenum,NIC,address,user_type,date) values (?,?,?,?,?,?,?,?,?)");
 		
 			preparedStatement.setString(1,employee.getUsername());
 			preparedStatement.setString(2,employee.getPassword());
@@ -52,6 +56,7 @@ public void addEmployee(Employee employee) {
 			preparedStatement.setString(7,employee.getAddress());
 			
 			preparedStatement.setString(8,employee.getUser_type());
+			preparedStatement.setString(9,df.format(dateobj));
 			
 			preparedStatement.execute();			
 		

@@ -20,7 +20,7 @@ public class empDriverList {
 		try {
 			
 			connection = DBConnect.getDBConnection();
-			preparedStatement = connection.prepareStatement("SELECT eid,efullname FROM employee WHERE designation='Driver' and DATE_ADD(date, INTERVAL 90 DAY)< CURDATE()");
+			preparedStatement = connection.prepareStatement("SELECT id,fullname FROM user WHERE user_type='Driver' and DATE_ADD(date, INTERVAL 90 DAY)< CURDATE()");
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
@@ -55,7 +55,7 @@ public class empDriverList {
 		try {
 			
 			connection = DBConnect.getDBConnection();
-			preparedStatement = connection.prepareStatement("SELECT id,eid,efullname,type,lnumber,age,ephonenum FROM employee e,driver d WHERE e.eid=d.empid");
+			preparedStatement = connection.prepareStatement("SELECT d.id,e.id,fullname,type,lnumber,age,phonenum FROM user e,driver d WHERE e.id=d.empid");
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
@@ -95,7 +95,7 @@ public class empDriverList {
 		try {
 			
 			connection = DBConnect.getDBConnection();
-			preparedStatement = connection.prepareStatement("SELECT id,eid,efullname,type,lnumber,age,ephonenum FROM employee e,driver d WHERE e.eid=d.empid");
+			preparedStatement = connection.prepareStatement("SELECT id,e.id,fullname,type,lnumber,age,phonenum FROM user e,driver d WHERE e.id=d.empid");
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
@@ -135,7 +135,7 @@ public class empDriverList {
 		try {
 			
 			connection = DBConnect.getDBConnection();
-			preparedStatement = connection.prepareStatement("SELECT id,eid,efullname,type,lnumber,age,ephonenum FROM employee e,driver d WHERE e.eid=d.empid and !(empid in (SELECT empid FROM reservation WHERE ((? > date or ? > date) and (? < ddate or ? < ddate) and empid != 0)))");
+			preparedStatement = connection.prepareStatement("SELECT d.id,e.id,fullname,type,lnumber,age,phonenum FROM user e,driver d WHERE e.id=d.empid and !(empid in (SELECT empid FROM reservation WHERE ((? > date or ? > date) and (? < ddate or ? < ddate) and empid != 0)))");
 			preparedStatement.setString(1, date);
 			preparedStatement.setString(2, ddate);
 			preparedStatement.setString(3, date);
@@ -179,7 +179,7 @@ public class empDriverList {
 		try {
 			
 			connection = DBConnect.getDBConnection();
-			preparedStatement = connection.prepareStatement("SELECT id,eid,efullname,type,lnumber,age,ephonenum FROM employee e,driver d WHERE e.eid=d.empid and !(empid in (SELECT empid FROM reservation WHERE ((?<=date) and (DATE_ADD(?, INTERVAL ? DAY)>=date)) or ((?<=DATE_ADD(date, INTERVAL ndays DAY)) and (DATE_ADD(?, INTERVAL ? DAY)>=DATE_ADD(date, INTERVAL ndays DAY))) or ((?>=date) and (?<=DATE_ADD(date, INTERVAL ndays DAY))) or ((DATE_ADD(?, INTERVAL ? DAY)>=date) and (DATE_ADD(?, INTERVAL ? DAY)<=DATE_ADD(date, INTERVAL ndays DAY)))))");
+			preparedStatement = connection.prepareStatement("SELECT d.id,eid,fullname,type,lnumber,age,phonenum FROM user e,driver d WHERE e.id=d.empid and !(empid in (SELECT empid FROM reservation WHERE ((?<=date) and (DATE_ADD(?, INTERVAL ? DAY)>=date)) or ((?<=DATE_ADD(date, INTERVAL ndays DAY)) and (DATE_ADD(?, INTERVAL ? DAY)>=DATE_ADD(date, INTERVAL ndays DAY))) or ((?>=date) and (?<=DATE_ADD(date, INTERVAL ndays DAY))) or ((DATE_ADD(?, INTERVAL ? DAY)>=date) and (DATE_ADD(?, INTERVAL ? DAY)<=DATE_ADD(date, INTERVAL ndays DAY)))))");
 			preparedStatement.setString(1, date);
 			preparedStatement.setString(2, date);
 			preparedStatement.setInt(3, Integer.parseInt(days));
