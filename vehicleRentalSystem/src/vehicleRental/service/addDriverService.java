@@ -14,7 +14,7 @@ public class addDriverService {
 
 	public void addDriver(Driver driver) {
 		Connection connection;
-		PreparedStatement preparedStatement;
+		PreparedStatement preparedStatement,preparedStatement1;
 		String lnumber=null;
 		
 		try {
@@ -38,9 +38,20 @@ public class addDriverService {
 					preparedStatement.setString(3, driver.getlNumber());
 					preparedStatement.setInt(4, driver.getAge());
 					preparedStatement.execute();
+					setSuccess(1);
+					
+					preparedStatement1 = connection.prepareStatement("select eemail from employee where eid=?");
+					preparedStatement1.setInt(1, driver.getEmpid());
+					ResultSet rs1 = preparedStatement1.executeQuery();
+				    
+					while (rs1.next()) {
+						System.out.print(rs1.getString(1));
+						MailService mail =new MailService();
+						mail.sendMail("Register Successful","Driver Register",rs1.getString(1));
+					}
+
 					preparedStatement.close();
 					connection.close();
-					setSuccess(1);
 	
 				
 			}else {
