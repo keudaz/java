@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vehicleRental.model.Driver;
 import vehicleRental.model.Vehicle;
@@ -104,6 +107,67 @@ public class VehicleService {
 			
 			connection = DBConnect.getDBConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM vehicle");
+			
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				
+				Vehicle vehicle = new Vehicle();
+				
+				vehicle.setVehicleId(resultSet.getInt(1));
+				vehicle.setVehicleNo(resultSet.getString(2));
+				vehicle.setOwnerName(resultSet.getString(3));
+				vehicle.setVehicleType(resultSet.getString(4));
+				vehicle.setPhone(resultSet.getString(5));
+				vehicle.setRegNo(resultSet.getString(6));
+				vehicle.setNumberEtched(resultSet.getString(7));
+				vehicle.setChassisNo(resultSet.getString(8));
+				vehicle.setModel(resultSet.getString(9));
+				vehicle.setColor(resultSet.getString(10));
+				vehicle.setYear(resultSet.getString(11));
+				vehicle.setMilage(resultSet.getString(12));
+				vehicle.setSeats(resultSet.getInt(13));
+				vehicle.setImage(resultSet.getString(14));
+				
+				vehicleList.add(vehicle);
+				
+			}
+			
+			preparedStatement.close();
+			connection.close();
+			
+		}catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException  e) {
+
+			System.out.println(e.getMessage());
+		}
+		
+		return vehicleList;
+	}
+	
+	public ArrayList<Vehicle> getAvailableVehicleList() {
+		
+		ArrayList<Vehicle> vehicleList = new ArrayList<Vehicle>();
+		Connection connection;
+		PreparedStatement preparedStatement;
+		
+		try {
+
+			DateFormat df = new SimpleDateFormat("yy-MM-dd");
+			Date dateobj = new Date();
+			System.out.println(df.format(dateobj));
+			
+			connection = DBConnect.getDBConnection();
+			
+			preparedStatement = connection.prepareStatement("UPDATE vehicle SET available=?, resDate=? where resDate<?");
+			
+			preparedStatement.setInt(1,0);
+			preparedStatement.setString(2,null);
+			preparedStatement.setString(3,df.format(dateobj).toString());
+			
+			preparedStatement.executeUpdate();
+			
+			
+			preparedStatement = connection.prepareStatement("SELECT * FROM vehicle where available=0");
 			
 			ResultSet resultSet = preparedStatement.executeQuery();
 			

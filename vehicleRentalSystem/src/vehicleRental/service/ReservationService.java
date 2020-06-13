@@ -5,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-
-
-
-
+import java.util.Date;
 import java.sql.Statement;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import vehicleRental.model.Reservation;
 
@@ -111,19 +108,81 @@ public void addReservation(Reservation reservation)  {
 		
 }
 
- public ArrayList<Reservation>viewReservations(){
+	public ArrayList<Reservation> oneReservation(){
+	
+		ArrayList<Reservation> requestList = new ArrayList<>();
+		Connection connection;
+		
+		PreparedStatement preparedStatement,preparedStatement1;
+	
+		try {
+			connection = DBConnect.getDBConnection();
+		
+			int rno=0;
+			preparedStatement1 = connection.prepareStatement("select * from reservation ORDER BY rno DESC LIMIT 1");
+		
+			ResultSet resultSet1 = preparedStatement1.executeQuery();
+			while (resultSet1.next()) {
+				rno=resultSet1.getInt(1);
+			}
+		
+			preparedStatement = connection.prepareStatement("select * from reservation where rno=?");
+			preparedStatement.setInt(1, rno);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			Reservation reservation = new Reservation();
+		
+			while (resultSet.next()) {
+				
+				reservation.setRno(resultSet.getInt(1));
+				reservation.setName(resultSet.getString(3));
+				reservation.setLocation(resultSet.getString(4));
+				
+				reservation.setDate(resultSet.getString(5));
+				reservation.setTime(resultSet.getString(6));
+	            reservation.setDlocation(resultSet.getString(7));
+				reservation.setDdate(resultSet.getString(8));
+				reservation.setDtime(resultSet.getString(9));
+				reservation.setDistance(resultSet.getFloat(10));
+				reservation.setVtype(resultSet.getString(11));
+				reservation.setPrice(resultSet.getInt(12));
+				reservation.setCharge(resultSet.getInt(13));
+				reservation.setDname("");
+				reservation.setDphone("");
+				
+				preparedStatement1 = connection.prepareStatement("select efullname,ephonenum from employee where eid=?");
+				preparedStatement1.setInt(1, resultSet.getInt(16));
+				ResultSet rs = preparedStatement1.executeQuery();
+			    
+				while (rs.next()) {
+					reservation.setDname(rs.getString(1));
+					reservation.setDphone(rs.getString(2));
+				}
+				
+			}
+			requestList.add(reservation);
+		
+		} catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException e) {
+	
+			System.out.println(e.getMessage());
+		}
+		return requestList;
+	}
+
+ public ArrayList<Reservation> viewReservations(){
 	
 	ArrayList<Reservation> requestList = new ArrayList<>();
 	Connection connection;
 	
-	PreparedStatement preparedStatement;
+	PreparedStatement preparedStatement,preparedStatement1;
 
 	try {
 		connection = DBConnect.getDBConnection();
 		
+		int rno=0;
+		
 	//	String val1=new AddReservation().returnVal();
 		//String val=new ShowReservation().returnVal();
-		preparedStatement = connection.prepareStatement("select * from reservation ORDER BY rno DESC LIMIT 1");
+		preparedStatement1 = connection.prepareStatement("select * from reservation ORDER BY rno DESC LIMIT 1");
 		//preparedStatement.setString(1, val);
 		//if (val1 != null) {
 		//	preparedStatement.setString(1, val1);
@@ -131,10 +190,19 @@ public void addReservation(Reservation reservation)  {
 		//	preparedStatement.setString(1, val);
 		//}
 		
-	ResultSet resultSet = preparedStatement.executeQuery();
-
+		ResultSet resultSet1 = preparedStatement1.executeQuery();
+		while (resultSet1.next()) {
+			rno=resultSet1.getInt(1);
+		}
 		
+		preparedStatement = connection.prepareStatement("select * from reservation where rno=?");
+		preparedStatement.setInt(1, rno);
+		ResultSet resultSet = preparedStatement.executeQuery();
+	
 		while (resultSet.next()) {
+			
+			
+			
 			Reservation reservation = new Reservation();
 		//	reservation.setNic(resultSet.getString(1));
 			reservation.setRno(resultSet.getInt(1));
@@ -150,10 +218,16 @@ public void addReservation(Reservation reservation)  {
 			reservation.setVtype(resultSet.getString(11));
 			reservation.setPrice(resultSet.getInt(12));
 			reservation.setCharge(resultSet.getInt(13));
+			reservation.setDname("");
+			reservation.setDphone("");
+			
+			System.out.println("KK"+resultSet.getInt(16));
+			
 		
 		    
 		    requestList.add(reservation);
-		    
+			
+			
 		  
 		}
 		
@@ -358,6 +432,28 @@ public void addReservation(Reservation reservation)  {
 			preparedStatement.setInt(3,reservation.getCharge());
 			
 			preparedStatement.executeUpdate();
+			
+			String date="";
+			
+			
+			preparedStatement = connection.prepareStatement("SELECT ddate FROM reservation ORDER BY rno DESC LIMIT 1");
+			ResultSet rs1 = preparedStatement.executeQuery();
+			 
+			while(rs1.next())
+			{
+				date=rs1.getString(1);
+				System.out.print(date);
+			}
+			
+			preparedStatement = connection.prepareStatement("UPDATE vehicle SET available=?, resDate=? where vehicleID=?");
+			
+			preparedStatement.setInt(1,1);
+			preparedStatement.setString(2,date);
+			preparedStatement.setInt(3,reservation.getVehicleId());
+			
+			preparedStatement.executeUpdate();
+			
+			
 	} catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException e) {
 
 		System.out.println(e.getMessage());

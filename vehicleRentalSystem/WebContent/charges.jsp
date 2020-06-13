@@ -140,7 +140,7 @@ color:white;
 		<%
 			
 		ReservationService reservationService = new ReservationService();
-			ArrayList <Reservation> arrayList=reservationService.viewReservations();
+			ArrayList <Reservation> arrayList=reservationService.oneReservation();
 
 			for(Reservation reservation:arrayList){
 		%>
@@ -188,6 +188,14 @@ color:white;
 		<tr>	
 			<td>Vehicle Rent</td>
 			<td><%=reservation.getPrice() %> rs</td>
+		</tr>
+		<tr>	
+			<td>Driver Name</td>
+			<td><%=reservation.getDname() %></td>
+		</tr>
+		<tr>	
+			<td>Driver Phone Number</td>
+			<td><%=reservation.getDphone() %></td>
 		</tr>
 		<tr>	
 			<td>Charge</td>

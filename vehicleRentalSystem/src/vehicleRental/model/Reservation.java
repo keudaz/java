@@ -1,32 +1,9 @@
  package vehicleRental.model;
 public class Reservation {
 	
-	private String itype;
-	
-	public String getItype() {
-		return itype;
-	}
-	public void setItype(String itype) {
-		this.itype = itype;
-	}
-
+	private String itype,dname,dphone;
+	int vehicleId;
 	private int rno;
-	public int getRno() {
-		return rno;
-	}
-	public void setRno(int rno) {
-		this.rno = rno;
-	}
-	
-	private String vtype;
-
-	public String getVtype() {
-		return vtype;
-	}
-	public void setVtype(String vtype) {
-		this.vtype = vtype;
-	}
-
 	private String name;
 
 	private String nic;
@@ -48,6 +25,47 @@ public class Reservation {
 	private int ndays;
 	private String ndriver;
 	
+	public int getVehicleId() {
+		return vehicleId;
+	}
+	public void setVehicleId(int vehicleId) {
+		this.vehicleId = vehicleId;
+	}
+	public String getItype() {
+		return itype;
+	}
+	public void setItype(String itype) {
+		this.itype = itype;
+	}
+
+	public int getRno() {
+		return rno;
+	}
+
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public String getDphone() {
+		return dphone;
+	}
+	public void setDphone(String dphone) {
+		this.dphone = dphone;
+	}
+	public void setRno(int rno) {
+		this.rno = rno;
+	}
+	
+	private String vtype;
+
+	public String getVtype() {
+		return vtype;
+	}
+	public void setVtype(String vtype) {
+		this.vtype = vtype;
+	}
 	
 	public String getNdriver() {
 		return ndriver;

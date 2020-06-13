@@ -360,14 +360,14 @@
 								<table>
 									<tr>
 										<td style="color:black;">Name</td>
-										<td><input type="text" onkeypress="isInputNumber1(event)" name="name" /></td>
+										<td><input type="text" onkeypress="isInputNumber1(event)" name="name" id="resName" /></td>
 									</tr>
 						            <tr>
 						                <td><br></td>
 						            </tr>
 						            <tr>
 										<td style="color:black;">Nic No</td>
-										<td><input type="text" onkeypress="isInputNumber2(event)" name="nic1" /></td>
+										<td><input type="text" onkeypress="isInputNumber2(event)" name="nic1" id="resNic" /></td>
 									</tr>
 									<tr>
 						                <td><br></td>
@@ -380,9 +380,9 @@
 											</div>
 										</td>
 							     		<td style="color:black;" >Date</td>
-										<td><input type="date" name="date" style="border-radius: 10px;" /></td>
+										<td><input type="date" name="date" style="border-radius: 10px;" id="resPicDate" /></td>
 										<td style="color:black;" >Time</td>
-										<td><input type="time" name="time" style="border-radius: 10px;" /></td>
+										<td><input type="time" name="time" style="border-radius: 10px;" id="resPicTime" /></td>
 									</tr>
 									<tr>
 										<td><br></td>
@@ -395,9 +395,9 @@
 									       	</div>
 									    </td>
 									    <td style="color:black;" >Date</td>
-										<td><input type="date" name="Ddate" style="border-radius: 10px;" /></td>
+										<td><input type="date" name="Ddate" style="border-radius: 10px;" id="resDropDate" /></td>
 										<td style="color:black;" >Time</td>
-										<td><input type="time" name="Dtime" style="border-radius: 10px;" /></td>
+										<td><input type="time" name="Dtime" style="border-radius: 10px;" id="resDropTime"/></td>
 									</tr>
 									<td><br></td>
 									<tr>
@@ -598,18 +598,18 @@
 	
 	<script>
 		function validateForm() {
-			var x = document.forms["myForm"]["name"].value;
-		  	var y = document.forms["myForm"]["nic1"].value;
-		  	var z = document.forms["myForm"]["location"].value;
-		  	var q = document.forms["myForm"]["date"].value;
-		  	var r = document.forms["myForm"]["time"].value;
-		  	var a = document.forms["myForm"]["Dlocation"].value;
-		  	var b = document.forms["myForm"]["Ddate"].value;
-	  		var c = document.forms["myForm"]["Dtime"].value;
-	  		var d = document.forms["myForm"]["distance"].value;
+			var x = document.getElementById("resName").value;
+		  	var y = document.getElementById("resNic").value;
+		  	var z = document.getElementById("myInput").value;
+		  	var q = document.getElementById("resPicDate").value;
+		  	var r = document.getElementById("resPicTime").value;
+		  	var a = document.getElementById("myInput1").value;
+		  	var b = document.getElementById("resDropDate").value;
+	  		var c = document.getElementById("resDropTime").value;
+	  		var d = document.getElementById("distance").value;
 		  
 		  	var str = "nic1";
-		  	var patt1 = /^[0-9]{9}[vVxX]$/g;
+		  	var patt1 = /[0-9]{9}[vVxX]/;
 		  
 		  	if (x == "" || y == "" || z == "" || q == "" || r == "" || a == "" || b == "" || c == "" || d == "0" ) {
 		    	alert("Field can not be empty !!! ");
