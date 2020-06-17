@@ -47,7 +47,6 @@ public class AddVehicleServlet extends HttpServlet {
 		vehicle.setVehicleType(request.getParameter("vehicleType"));
 		vehicle.setPhone(request.getParameter("phoneNum"));
 		vehicle.setRegNo(request.getParameter("regNo"));
-		vehicle.setNumberEtched(request.getParameter("numEtched"));
 		vehicle.setChassisNo(request.getParameter("chassisNum"));
 		vehicle.setModel(request.getParameter("model"));
 		vehicle.setColor(request.getParameter("color"));

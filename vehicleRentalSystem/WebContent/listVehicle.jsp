@@ -145,7 +145,6 @@
                           <th scope="col">Vehicle Type</th>
                           <th scope="col">Phone</th>
                           <th scope="col">Registration No</th>
-                          <th scope="col">Number Etched</th>
                           <th scope="col">Chassis No</th>
                           <th scope="col">Model</th>
                           <th scope="col">Color</th>
@@ -170,7 +169,6 @@
                          <td><%=vehicleList.getVehicleType() %></td>
                          <td><%=vehicleList.getPhone() %></td>
                          <td><%=vehicleList.getRegNo() %></td>
-                         <td><%=vehicleList.getNumberEtched() %></td>
                          <td><%=vehicleList.getChassisNo() %></td>
                          <td><%=vehicleList.getModel() %></td>
                          <td><%=vehicleList.getColor() %></td>
@@ -207,8 +205,7 @@
                   <input type="hidden" value="<%=vehicleList.getVehicleType() %>" id="row_VehicleType_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
                   <input type="hidden" value="<%=vehicleList.getPhone() %>" id="row_Phone_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
                   <input type="hidden" value="<%=vehicleList.getRegNo() %>" id="row_RegNo_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
-              	  <input type="hidden" value="<%=vehicleList.getNumberEtched() %>" id="row_NumberEtched_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
-                  <input type="hidden" value="<%=vehicleList.getChassisNo() %>" id="row_ChassisNo_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
+              	  <input type="hidden" value="<%=vehicleList.getChassisNo() %>" id="row_ChassisNo_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
                   <input type="hidden" value="<%=vehicleList.getModel() %>" id="row_model_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
                   <input type="hidden" value="<%=vehicleList.getColor() %>" id="row_color_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
                   <input type="hidden" value="<%=vehicleList.getYear() %>" id="row_year_<%=vehicleList.getVehicleId() %>" class="elementz" style="width:100px" readonly>
@@ -250,10 +247,6 @@
 	                <div class="form-group">
 	                    <label for="dage">Registration No :</label>
 	                    <input type="text" class="form-control" name="regNo" id="regNo" required>
-	                </div>
-	                <div class="form-group">
-	                    <label for="dage">No Etched :</label>
-	                    <input type="text" class="form-control" name="numEtched" id="numEtched" required>
 	                </div>
 	                <div class="form-group">
 	                    <label for="dage">Chassis No :</label>
@@ -315,7 +308,6 @@
         var vehicleType = '#row_VehicleType_'+id;
         var phone = '#row_Phone_'+id;
         var RegNo = '#row_RegNo_'+id;
-        var numEtched = '#row_NumberEtched_'+id;
         var chassisNo = '#row_ChassisNo_'+id;
         var model = '#row_model_'+id;
         var color = '#row_color_'+id;
@@ -332,7 +324,6 @@
         $('#vehicleType').val($(vehicleType).val());
         $('#phoneNum').val($(phone).val());
         $('#regNo').val($(RegNo).val());
-        $('#numEtched').val($(numEtched).val());
         $('#chassisNum').val($(chassisNo).val());
         $('#model').val($(model).val());
         $('#color').val($(color).val());

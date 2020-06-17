@@ -92,10 +92,6 @@
 	                    <input type="text" class="form-control" name="regNo" id="regNo" required>
 	                </div>
 	                <div class="form-group">
-	                    <label for="dage">No Etched :</label>
-	                    <input type="text" class="form-control" name="numEtched" id="numEtched" required>
-	                </div>
-	                <div class="form-group">
 	                    <label for="dage">Chassis No :</label>
 	                    <input type="text" class="form-control" name="chassisNum" id="chassisNum" required>
 	                </div>
