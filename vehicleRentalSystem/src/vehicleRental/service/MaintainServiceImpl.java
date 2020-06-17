@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import vehicleRental.model.Employee;
 import vehicleRental.model.Maintain;
 import vehicleRental.util.DBConnect;
 
@@ -109,7 +110,32 @@ public class MaintainServiceImpl implements MaintainService {
 
 	@Override
 	public Maintain getMaintainByID(String manId) {
-		return actionOnMaintain(manId).get(0);
+		Maintain maintain = new Maintain();
+		
+		try {
+			connection = DBConnect.getDBConnection();
+			
+			preparedStatement = connection.prepareStatement("SELECT * FROM maintain WHERE maintain.manId = ?");
+			  
+			  preparedStatement.setString(1, manId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				
+				maintain.setManId(resultSet.getInt(1));
+				maintain.setVno(resultSet.getString(2));
+				maintain.setDate(resultSet.getString(3));
+				maintain.setDetails(resultSet.getString(4));
+				maintain.setCost(resultSet.getInt(5));
+				
+			}
+			
+			return maintain;
+			
+		}catch(Exception e) {
+			
+			return maintain;
+		}
 	}
 
 	@Override

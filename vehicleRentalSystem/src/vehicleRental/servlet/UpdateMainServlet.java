@@ -8,16 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import vehicleRental.model.Maintain;
 import vehicleRental.service.MaintainService;
 import vehicleRental.service.MaintainServiceImpl;
 
-public class DeleteMaintainServlet extends HttpServlet {
+/**
+ * Servlet implementation class UpdateMainServlet
+ */
+public class UpdateMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMaintainServlet() {
+    public UpdateMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,14 +39,24 @@ public class DeleteMaintainServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-
+		Maintain maintain = new Maintain();
 		String manId = request.getParameter("manId");
 
-		MaintainService maintainServices = new MaintainServiceImpl();
-		maintainServices.deleteMaintain(manId);
+		int id = Integer.parseInt(manId);
+		maintain.setManId(id);
+		
+		maintain.setVno(request.getParameter("vno"));
+		maintain.setDate(request.getParameter("date"));
+		maintain.setDetails(request.getParameter("details"));
+		maintain.setCost(Integer.parseInt(request.getParameter("cost")));
+		
+		MaintainService maintainService= new MaintainServiceImpl();
+		maintainService.updateMaintain(manId, maintain);
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/listMaintain.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/listMaintain.jsp");
 		dispatcher.forward(request, response);
+
+		maintain.setManId(id);
 	}
 
 }

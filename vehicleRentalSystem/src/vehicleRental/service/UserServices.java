@@ -184,12 +184,12 @@ public Users getUsereByID(String userID) {
 public void deleteUser(String userId) {
 	
 	
-	if (userId != null && !userId.isEmpty()) {
+	if (userId != null && userId != "") {
 		
 				try {
 							connection = DBConnect.getDBConnection();
 							preparedStatement = connection
-									.prepareStatement("delete from user where user.uid = ?");
+									.prepareStatement("delete from user where id = ?");
 							
 							
 							

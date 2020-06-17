@@ -62,7 +62,7 @@ td {
 
 			<div class="form_content">
 
-				<form method="POST" name="myForm" action="UpdateMaintainServlet" onsubmit="return validateForm()">
+				<form method="POST" name="myForm" action="UpdateMainServlet" onsubmit="return validateForm()">
 					<table>
 						<tr>
 							<td>Maintain ID</td>
@@ -109,7 +109,7 @@ td {
 				<table>
 					<tr>
 						<td colspan="2">
-							<form method="POST" action="DeleteMaintainServlet">
+							<form method="POST" action="DeleteMainServlet">
 								<input type="hidden" name="manId" value="<%=maintain.getManId()%>" /> <input
 									type="submit" class="btn btn-danger" value="Delete Maintain"
 									class="delete-button" />

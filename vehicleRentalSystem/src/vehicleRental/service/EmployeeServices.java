@@ -139,13 +139,13 @@ private ArrayList<Employee> actionOnEmployee(String employeeID) {
 			
 			employee.setEmpId(resultSet.getInt(1));
 			employee.setUsername(resultSet.getString(2));
-			employee.setPassword(resultSet.getString(3));
-			employee.setEmail(resultSet.getString(4));
-			employee.setName(resultSet.getString(5));
-			employee.setPhoneNum(resultSet.getString(6));
-			employee.setNIC(resultSet.getString(7));
-			employee.setAddress(resultSet.getString(8));
-			employee.setDesignation(resultSet.getString(9));
+			employee.setPassword(resultSet.getString(9));
+			employee.setEmail(resultSet.getString(3));
+			employee.setName(resultSet.getString(4));
+			employee.setPhoneNum(resultSet.getString(5));
+			employee.setNIC(resultSet.getString(6));
+			employee.setAddress(resultSet.getString(7));
+			employee.setDesignation(resultSet.getString(8));
 			
 			
 			
@@ -190,7 +190,38 @@ private ArrayList<Employee> actionOnEmployee(String employeeID) {
 
 public Employee getEmployeeByID(String empoyeeID) {
 	
-	return actionOnEmployee(empoyeeID).get(0);
+	Employee employee = new Employee();
+	
+	try {
+		connection = DBConnect.getDBConnection();
+		
+		preparedStatement = connection.prepareStatement("select * from user where id = ?");
+		
+		preparedStatement.setString(1, empoyeeID);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		while (resultSet.next()) {
+			
+			employee.setEmpId(resultSet.getInt(1));
+			employee.setUsername(resultSet.getString(2));
+			employee.setEmail(resultSet.getString(3));
+			employee.setName(resultSet.getString(4));
+			employee.setPhoneNum(resultSet.getString(5));
+			employee.setNIC(resultSet.getString(6));
+			employee.setAddress(resultSet.getString(7));
+			employee.setDesignation(resultSet.getString(8));
+			
+			
+			
+		}
+		
+		return employee;
+		
+	}catch(Exception e) {
+		
+		return employee;
+	}
+	
 }
 
 
@@ -203,13 +234,12 @@ public Employee getEmployeeByID(String empoyeeID) {
 public Employee updateEmployee(String employeeID, Employee employee) {
 	
 	
-	if (employeeID != null && !employeeID.isEmpty()) {
+	if (employeeID != null && employeeID != "") {
 
 
 		try {
 			connection = DBConnect.getDBConnection();
-			preparedStatement = connection
-					.prepareStatement("UPDATE employee SET efullname = ?, eemail = ? , ephonenum =?, NIC =? ,  		address =? ,  designation =?  where  eid =?" );
+			preparedStatement = connection.prepareStatement("UPDATE user SET fullname = ?, uemail = ? , phonenum =?, NIC =? ,  		address =? ,  user_type =?  where  id =?" );
 			
 			preparedStatement.setString(1, employee.getName());
 			preparedStatement.setString(2, employee.getEmail());
@@ -217,7 +247,7 @@ public Employee updateEmployee(String employeeID, Employee employee) {
 			preparedStatement.setString(4, employee.getNIC());
 			preparedStatement.setString(5, employee.getAddress());
 			preparedStatement.setString(6, employee.getDesignation());
-			preparedStatement.setInt(7, employee.getEmpId());
+			preparedStatement.setString(7, employeeID);
 			
 			
 			
@@ -265,42 +295,18 @@ public Employee updateEmployee(String employeeID, Employee employee) {
 public void deleteEmployee(String employeeID) {
 	
 	
-	if (employeeID != null && !employeeID.isEmpty()) {
+	if (employeeID != null && employeeID != "" ) {
 		
-				try {
-							connection = DBConnect.getDBConnection();
-							preparedStatement = connection
-									.prepareStatement("delete from user where user.uid = ?");
-							
-							
-							
-							//int id = Integer.parseInt(employeeID);
-							
-							//preparedStatement.setInt(1, id);
-							
-							preparedStatement.setString(1, employeeID);
-							preparedStatement.executeUpdate();
-					
-					
-				
-				} catch(Exception e) {
-					
-					
-				}
-				
-				finally {
-					
-					try {
-						if (preparedStatement != null) {
-							preparedStatement.close();
-						}
-						if (connection != null) {
-							connection.close();
-						}
-					} catch (SQLException e) {
-						//log.log(Level.SEVERE, e.getMessage());
-					}
-				}
+		try {
+			connection = DBConnect.getDBConnection();
+			
+			//delete type
+			preparedStatement = connection.prepareStatement("DELETE FROM user WHERE id=?");
+			preparedStatement.setString(1, employeeID);
+			preparedStatement.execute();
+		
+		}catch (ClassNotFoundException | SQLException | InstantiationException | IllegalAccessException  e) {
+		}
 
 	}
 	

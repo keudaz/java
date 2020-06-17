@@ -25,6 +25,13 @@ background-image: url('1.png');
 	margin: auto;
 }
 </style>
+	<script src="assets/js/core/jquery.3.2.1.min.js"></script>
+	
+	<script src="assets/js/sweetalert.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="assets/css/jquery.dataTables.css">
+
+	<script charset="utf8" src="assets/js/jquery.dataTables.js"></script>
 </head>
 <body>
 
@@ -45,12 +52,6 @@ background-image: url('1.png');
 
   <!-- Page Content -->
   
-  <div class="form-group">
-	<form class="form-inline" name="search" action="maintain_search" method="POST">
-		<input class="form-control" name="manSearch" placeholder="Search..."></input>
-		<button class="btn btn-outline-success my-20 my-sm-20" type="submit" >click here</button>
-	</form>
-</div>
   
   
   
@@ -58,16 +59,18 @@ background-image: url('1.png');
     <div class="row">
     	<div class="form_content">
 	
-      			<table class="table table-striped table-dark  table-hover ">
-		 
-		  <tr>
+      			<table id="table1">
+                  <thead>
+                      <tr>
                 <th>Maintain ID</th>
                 <th>Vehicle NO</th>
                 <th>Date</th>
                 <th>Details</th>
                 <th>Cost</th>
+                <th>Action</th>
             </tr>
-            
+                  </thead>
+                  <tbody>
             <%
             MaintainService  iMaintainService= new MaintainServiceImpl();
             
@@ -88,7 +91,7 @@ background-image: url('1.png');
 			
 				<td> 
 				
-				<form method="POST" action="GetMaintainByIdServlet">
+				<form method="POST" action="GetMainByIdServlet">
 				
 				<input type="hidden" name="manId" value="<%= maintain.getManId()%>"/>
 				 <input type="submit"  class="btn btn-secondary" value= "Select Maintain" class="select-button" /> 
@@ -99,6 +102,7 @@ background-image: url('1.png');
 			<%	
 			   }
             %>     
+                  </tbody>
 		</table>
 		
 		 
@@ -110,3 +114,12 @@ background-image: url('1.png');
 
 </body>
 </html>
+<script>
+    $(document).ready(function () {
+
+        var dataTable = $('#table1').DataTable({});
+
+        
+        });
+
+</script>

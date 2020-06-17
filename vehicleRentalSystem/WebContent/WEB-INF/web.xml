@@ -464,4 +464,44 @@
     <servlet-name>deleteVehicleServlet</servlet-name>
     <url-pattern>/deleteVehicleServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetMaintainByIdServlet</display-name>
+    <servlet-name>GetMaintainByIdServlet</servlet-name>
+    <servlet-class>vehicleRental.servlet.GetMaintainByIdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetMaintainByIdServlet</servlet-name>
+    <url-pattern>/GetMaintainByIdServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetMainByIdServlet</display-name>
+    <servlet-name>GetMainByIdServlet</servlet-name>
+    <servlet-class>vehicleRental.servlet.GetMainByIdServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetMainByIdServlet</servlet-name>
+    <url-pattern>/GetMainByIdServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteMainServlet</display-name>
+    <servlet-name>DeleteMainServlet</servlet-name>
+    <servlet-class>vehicleRental.servlet.DeleteMainServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteMainServlet</servlet-name>
+    <url-pattern>/DeleteMainServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateMainServlet</display-name>
+    <servlet-name>UpdateMainServlet</servlet-name>
+    <servlet-class>vehicleRental.servlet.UpdateMainServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateMainServlet</servlet-name>
+    <url-pattern>/UpdateMainServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

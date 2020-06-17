@@ -8,17 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import vehicleRental.model.Maintain;
 import vehicleRental.service.MaintainService;
 import vehicleRental.service.MaintainServiceImpl;
 
-public class GetMaintainByIdServlet extends HttpServlet {
+/**
+ * Servlet implementation class DeleteMainServlet
+ */
+public class DeleteMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetMaintainByIdServlet() {
+    public DeleteMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,12 +39,12 @@ public class GetMaintainByIdServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 
- 		String manId = request.getParameter("manId");			
- 		MaintainService  iMaintainService = new MaintainServiceImpl();
- 		Maintain maintain = iMaintainService.getMaintainByID(manId);
+		String manId = request.getParameter("manId");
 
-		request.setAttribute("maintain", maintain);
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/views/GetMaintain.jsp");
+		MaintainService maintainServices = new MaintainServiceImpl();
+		maintainServices.deleteMaintain(manId);
+
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/listMaintain.jsp");
 		dispatcher.forward(request, response);
 	}
 
